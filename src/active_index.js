@@ -1,22 +1,16 @@
-import Model from 'lib/model'
-class ActiveLevel {
-  const DBMethods = [
-      'clear',
-      'find',
-      'create',
-      'find_or_create',
-      'update',
-      'destroy',
-      'where'
-  ]
+"use strict"
 
-  constructor (options) {
-    this.dbName = options.name
-    this.config = options.config
-  }
+import Model from './lib/model.js'
+import Base from './lib/base.js'
+import './lib/exceptions/no_method_error'
 
+// import Base from './lib/base.js'
+
+console.log(UserError);
+
+let ActiveLevel = {
+  Base,
+  Model,
 }
 
-
-ActiveLevel.Model = Model
-module.exports = ActiveLevel
+export default ActiveLevel

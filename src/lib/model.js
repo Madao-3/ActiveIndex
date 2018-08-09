@@ -6,10 +6,12 @@ class ActiveLevelModel {
   }
 
   proxyHandler () {
-    get: function(target, name){
-      if (DBMethods.includes(name)) return this[name]()
-      if (target.hasOwnProperty(name)) return this[name]
-      return this.methodMissing(name)
+    return {
+      get: (target, name) => {
+        if (DBMethods.includes(name)) return this[name]()
+        if (target.hasOwnProperty(name)) return this[name]
+        return this.methodMissing(name)
+      }
     }
   }
 
@@ -17,3 +19,5 @@ class ActiveLevelModel {
     attribute
   }
 }
+
+module.exports = ActiveLevelModel

@@ -11,10 +11,11 @@
 </body>
 <script src='./build/active_index.js'></script>
 <script>
-  debugger
-  // class ClassName {
-  //   constructor() {
-  //
-  //   }
-  // }
+  // ActiveIndex.
+  class Post extends ActiveIndex.Base {
+    constructor() {
+
+    }
+  }
+  console.log(Post.where({id: [1]}))
 </script>
