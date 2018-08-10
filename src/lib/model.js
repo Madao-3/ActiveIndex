@@ -1,14 +1,17 @@
-class ActiveLevelModel {
+"use strict"
+import Exception from './exception'
+
+class ActiveIndexModel {
   constructor(attributes) {
     this.attributes = attributes
-    let db_proxy = new Proxy(this, this.proxyHandler);
-    return db_proxy
+    let modelProxy = new Proxy(this, this.proxyHandler())
+    return modelProxy
   }
 
   proxyHandler () {
     return {
       get: (target, name) => {
-        if (DBMethods.includes(name)) return this[name]()
+        if (this.attributes[name]) return this.attributes[name]
         if (target.hasOwnProperty(name)) return this[name]
         return this.methodMissing(name)
       }
@@ -16,8 +19,8 @@ class ActiveLevelModel {
   }
 
   methodMissing (name) {
-    attribute
+    throw new Exception.NoMethodError(`No method ${name}`)
   }
 }
 
-module.exports = ActiveLevelModel
+export default ActiveIndexModel

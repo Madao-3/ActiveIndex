@@ -1,12 +1,18 @@
 import Collection from './collection'
+import Exception from './exception'
 
-class ActiveLevelQuery {
+class ActiveIndexQuery {
   constructor (options) {
-    if (!options) return null
-    console.log('query', options);
+    if (!options) throw new Exception.ArgumentsError('请补充查询条件')
+    let _global = (typeof(window) === 'undefined') ? global : window
+    
+    // if () {
+    //
+    // }
+
     return []
   }
 }
 
 
-export default ActiveLevelQuery
+export default ActiveIndexQuery

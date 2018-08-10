@@ -1,23 +1,55 @@
 import Model from './model'
 import Query from './query'
+import Exception from './exception'
+import DBAdapter from './exception'
 
-var DEFAULT_DB_NAME = 'defaultDB';
-var DEFAULT_DB;
+let DEFAULT_DB_NAME = 'defaultDB'
+let DEFAULT_DB
 
-class ActiveLevelBase {
-  constructor (options) {
-    if (!options) return null
-    this.dbName = options.name
-    this.config = options.config
+class ActiveIndexBase {
+  constructor (attrs) {
+    if (!ActiveIndexBase.dbName) {
+      throw new Exception.UndefinedError('please define ActiveIndexBase.dbName')
+    }
+    this.model = new Model(attrs)
+    let proxy = new Proxy(this, this.proxyHandler())
+    return proxy
+  }
+
+  proxyHandler () {
+    return {
+      get: (target, name) => {
+        if (this.model[name]) return this.model[name]
+        if (target.hasOwnProperty(name)) return this[name]
+        return this.methodMissing(name)
+      }
+    }
+  }
+
+  _db (name) {
+    if(!this.db) this._db = new DBAdapter(ActiveIndexBase.adapter);
+    return this.db
+  }
+
+  save () {
+    
+  }
+
+  methodMissing (name) {
+    throw new Exception.NoMethodError(`No method ${name}`)
   }
 }
 
-ActiveLevelBase.find = function (id){
+ActiveIndexBase.dbName = null
+ActiveIndexBase.adapter = 'leveldb'
+// 'mysql' ... emm  maybe?
+
+ActiveIndexBase.find = function (id){
   return (new Query({id}))[0]
 }
 
-ActiveLevelBase.where = function (queryParams){
+ActiveIndexBase.where = function (queryParams){
   return (new Query(queryParams))
 }
 
-export default ActiveLevelBase
+export default ActiveIndexBase

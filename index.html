@@ -11,11 +11,16 @@
 </body>
 <script src='./build/active_index.js'></script>
 <script>
-  // ActiveIndex.
+  ActiveIndex.Base.dbName = 'article_development'
   class Post extends ActiveIndex.Base {
-    constructor() {
-
+    constructor (attrs) {
+      return super(attrs)
+    }
+    tableName () {
+      
     }
   }
-  console.log(Post.where({id: [1]}))
+  let post = new Post({title: '这是一篇文章'})
+  console.log(post.title, post._db)
+  // post.save
 </script>

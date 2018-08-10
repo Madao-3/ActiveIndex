@@ -1,6 +1,4 @@
-import 'exceptions/no_method_error'
-
-class ActiveLevelCollection {
+class ActiveIndexCollection {
   constructor(list) {
     this.list = list
     let collectionProxy = new Proxy(this, this.proxyHandler);
@@ -17,8 +15,8 @@ class ActiveLevelCollection {
   }
 
   methodMissing (name) {
-    throw new ReferenceError()
+    throw new ReferenceError('method missing')
   }
 }
 
-module.exports = ActiveLevelCollection
+module.exports = ActiveIndexCollection
