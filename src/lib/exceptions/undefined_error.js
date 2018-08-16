@@ -1,4 +1,4 @@
 export default function (message) {
-  this.message = message || 'undefind error'
-  this.name = 'UndefindError'
+  this.message = message || 'undefined error'
+  this.name = 'UndefinedError'
 }

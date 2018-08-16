@@ -1,4 +1,4 @@
 export default function (message) {
-  this.message = message || '方法未定义'
+  this.message = message || 'No MethodError'
   this.name = 'NoMethodError'
 }

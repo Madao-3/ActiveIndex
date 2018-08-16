@@ -29,7 +29,8 @@
       }
     }
   }
-  let post = new Post({title: '这是一篇文章'})
+  let post = new Post({title: '这是一篇文章', content: '内容不多，就这么多'})
   console.log(post.title)
   console.log(post.valid())
+  console.log(post.db())
 </script>

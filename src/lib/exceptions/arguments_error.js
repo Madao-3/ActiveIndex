@@ -1,4 +1,4 @@
 export default function (message) {
-  this.message = message || '参数错误'
+  this.message = message || 'Arguments Error'
   this.name = 'ArgumentsError'
 }

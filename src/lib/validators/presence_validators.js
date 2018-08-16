@@ -1,6 +1,7 @@
 class PresenceValidator {
-  valid (model, name) {
-    return model[name] && model[name].length
+  static valid (value) {
+    console.log(`PresenceValidator: ${value}`)
+    return value && value.length
   }
 }
 module.exports = PresenceValidator

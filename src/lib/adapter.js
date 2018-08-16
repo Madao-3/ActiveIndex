@@ -1,6 +1,13 @@
+import LevelDBAdpter from './adapters/leveldb'
+
 class ActiveIndexAdapter {
-  constructor (adapterName) {
-    // TODO Why Not?
+  constructor (adapterName, dbName) {
+    switch (adapterName) {
+    case 'leveldb':
+      return new LevelDBAdpter(dbName)
+    default:
+      return null
+    }
   }
 }
 

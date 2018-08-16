@@ -4,6 +4,7 @@ import Exception from './exception'
 class ActiveIndexModel {
   constructor(attributes) {
     this.attributes = attributes
+    this._changed = false
     let modelProxy = new Proxy(this, this.proxyHandler())
     return modelProxy
   }
@@ -28,6 +29,10 @@ class ActiveIndexModel {
 
   destroy () {
     
+  }
+
+  methodMissing (name) {
+    throw new ReferenceError('method missing ' + name, arguments)
   }
 }
 

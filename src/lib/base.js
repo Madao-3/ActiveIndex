@@ -1,7 +1,7 @@
 import Model from './model'
 import Query from './query'
 import Exception from './exception'
-import DBAdapter from './exception'
+import DBAdapter from './adapter'
 import ActiveIndexValidator from './validator'
 
 let DEFAULT_DB_NAME = 'defaultDB'
@@ -9,30 +9,46 @@ let DEFAULT_DB
 
 class ActiveIndexBase extends ActiveIndexValidator {
   constructor (attrs) {
-    this = super()
-    if (!ActiveIndexBase.dbName) {
-      throw new Exception.UndefinedError('please define ActiveIndexBase.dbName')
+    super(attrs)
+    if (!ActiveIndexBase.dbName) throw new Exception.UndefinedError('please define ActiveIndexBase.dbName')
+    Object.assign(this, {model: new Model(attrs, ActiveIndexBase.adapter)});
+    this.defineModelProperty(attrs)
+    return this
+  }
+
+  defineModelProperty (attrs) {
+    for (let columnName of Object.keys(attrs)) {
+      Object.defineProperty(this, columnName, {
+        get : function(){
+          return this.model[columnName];
+        },
+        set : function(newValue){
+          if (this.model[columnName] !== newValue) this.model._changed = true
+          this.model[columnName] = newValue
+        },
+        enumerable : false,
+        configurable : true
+      });
     }
-    Object.assign(this, {model: new Model(attrs)});
-    let proxy = new Proxy(this, this.proxyHandler())
-    return proxy
   }
 
   proxyHandler () {
     return {
       get: (target, name) => {
-        debugger
-        console.log(window.a = this.model)
-        if (this.model[name]) return this.model[name]
         if (target.hasOwnProperty(name)) return this[name]
+        if (this.model[name]) return this.model[name]
         return this.methodMissing(name)
       }
     }
   }
 
+  currentAdapter () {
+    if (!this._adapter) this._adapter = new DBAdapter(ActiveIndexBase.adapter, ActiveIndexBase.dbName);
+    return this._adapter
+  }
+
   db (name) {
-    if(!this._db) this._db = new DBAdapter(ActiveIndexBase.adapter);
-    return this._db
+    return this.currentAdapter().db
   }
 
   methodMissing (name) {
