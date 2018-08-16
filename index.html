@@ -7,7 +7,9 @@
 </head>
 <body>
   <textarea></textarea>
-  
+
+<p aria-live="assertive">hahhaa</p>
+
 </body>
 <script src='./build/active_index.js'></script>
 <script>
@@ -17,10 +19,17 @@
       return super(attrs)
     }
     tableName () {
-      
+
+    }
+    validators () {
+      return {
+        title: {
+          presence: true
+        }
+      }
     }
   }
   let post = new Post({title: '这是一篇文章'})
-  console.log(post.title, post._db)
-  // post.save
+  console.log(post.title)
+  console.log(post.valid())
 </script>

@@ -18,8 +18,16 @@ class ActiveIndexModel {
     }
   }
 
-  methodMissing (name) {
-    throw new Exception.NoMethodError(`No method ${name}`)
+  save () {
+    
+  }
+
+  update () {
+    
+  }
+
+  destroy () {
+    
   }
 }
 
