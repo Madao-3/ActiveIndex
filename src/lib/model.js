@@ -12,7 +12,7 @@ class ActiveIndexModel {
   proxyHandler () {
     return {
       get: (target, name) => {
-        if (this.attributes[name]) return this.attributes[name]
+        if (Object.keys(this.attributes).includes(name)) return this.attributes[name]
         if (target.hasOwnProperty(name)) return this[name]
         return this.methodMissing(name)
       }

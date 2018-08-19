@@ -1,10 +1,10 @@
 import LevelDBAdpter from './adapters/leveldb'
 
 class ActiveIndexAdapter {
-  constructor (adapterName, dbName) {
+  constructor (adapterName, dbName, client) {
     switch (adapterName) {
     case 'leveldb':
-      return new LevelDBAdpter(dbName)
+      return new LevelDBAdpter(dbName, {client})
     default:
       return null
     }

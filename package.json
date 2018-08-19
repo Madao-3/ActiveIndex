@@ -4,7 +4,7 @@
   "description": "",
   "main": "active_index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "indexeddb",
@@ -15,6 +15,14 @@
   "author": "Madao",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-preset-env": "^1.7.0",
+    "indexeddb-js": "0.0.14",
+    "jest": "^23.5.0",
+    "level": "^4.0.0",
+    "regenerator-runtime": "^0.12.1",
+    "sqlite3": "^4.0.2",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
   }

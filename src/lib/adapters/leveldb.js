@@ -2,7 +2,8 @@ import Exception from '../exception'
 
 class LevelDBAdpter {
   constructor (dbName, options = {}) {
-    if (!window.indexedDB) throw new ReferenceError('indexedDB is not supported!')
+    this.client = options['client'] || window.indexedDB
+    if (!this.client) throw new ReferenceError('indexedDB is not supported!')
     this.version = options.version || 1
     this.dbName = dbName
     this.initDb()
@@ -14,7 +15,7 @@ class LevelDBAdpter {
 
   getDb () {
     return new Promise((resolve, reject) => {
-      let request = indexedDB.open(this.dbName, this.version)
+      let request = this.client.open(this.dbName, this.version)
       request.onsuccess = (e) => {
         resolve(request.result)
       }

@@ -43,7 +43,7 @@ class ActiveIndexBase extends ActiveIndexValidator {
   }
 
   currentAdapter () {
-    if (!this._adapter) this._adapter = new DBAdapter(ActiveIndexBase.adapter, ActiveIndexBase.dbName);
+    if (!this._adapter) this._adapter = new DBAdapter(ActiveIndexBase.adapter, ActiveIndexBase.dbName, ActiveIndexBase.client);
     return this._adapter
   }
 
@@ -58,7 +58,7 @@ class ActiveIndexBase extends ActiveIndexValidator {
 
 ActiveIndexBase.dbName = null
 ActiveIndexBase.adapter = 'leveldb'
-// 'mysql' ... emm  maybe?
+ActiveIndexBase.client = null
 
 ActiveIndexBase.find = function (id){
   return (new Query({id}))[0]

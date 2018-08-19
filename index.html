@@ -13,7 +13,8 @@
 </body>
 <script src='./build/active_index.js'></script>
 <script>
-  ActiveIndex.Base.dbName = 'article_development'
+  ActiveIndex.Base.dbName = 'blog_development'
+  ActiveIndex.Base.client = window.indexedDB
   class Post extends ActiveIndex.Base {
     constructor (attrs) {
       return super(attrs)
@@ -29,7 +30,9 @@
       }
     }
   }
+
   let post = new Post({title: '这是一篇文章', content: '内容不多，就这么多'})
+
   console.log(post.title)
   console.log(post.valid())
   console.log(post.db())
