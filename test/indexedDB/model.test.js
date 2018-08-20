@@ -13,6 +13,7 @@ test('Init A Model with title', () => {
 })
 
 
-test('Init A Model with title', () => {
-  expect(new ActiveIndex.Base({title: 'title'}).title).toBe('title');
+test('Save A Model with title', () => {
+  
+  // expect(new ActiveIndex.Base({title: 'title'}).title).toBe('title');
 })
